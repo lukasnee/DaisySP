@@ -2,6 +2,12 @@
 #include "analogsnaredrum.h"
 #include <math.h>
 #include <stdlib.h>
+extern "C"
+{
+#include "stm32f303xe.h"
+#define ARM_MATH_CM4
+#include "arm_math.h"
+}
 
 using namespace daisysp;
 
@@ -177,7 +183,7 @@ float AnalogSnareDrum::Process(bool trigger)
 
         shell += gain[i]
                  * (sustain_
-                        ? sin(phase_[i] * TWOPI_F) * sustain_gain_value * 0.25f
+                        ? arm_sin_f32(phase_[i] * TWOPI_F) * sustain_gain_value * 0.25f
                         : resonator_[i].Band() + excitation * exciter_leak);
     }
     shell = SoftClip(shell);

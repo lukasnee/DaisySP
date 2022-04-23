@@ -66,6 +66,20 @@ set_target_properties(DaisySP PROPERTIES PUBLIC
   CXX_STANDARD_REQUIRED
   )
 
+target_compile_options(DaisySP PRIVATE 
+    -mcpu=cortex-m4
+    -mthumb
+    -mfpu=fpv4-sp-d16
+    -mfloat-abi=hard
+    -fsingle-precision-constant 
+
+    -specs=nano.specs
+    -fstack-usage
+    -Wall
+    -Wextra
+    -fdata-sections
+    -ffunction-sections
+)
 
 target_include_directories(DaisySP PUBLIC
   ${CMAKE_CURRENT_LIST_DIR}/Source
@@ -80,4 +94,7 @@ target_include_directories(DaisySP PUBLIC
   "Source/PhysicalModeling"
   "Source/Synthesis"
   "Source/Utility"
+  "../../core/libraries/STM32CubeF3/Drivers/CMSIS/DSP/Include"
+  "../../core/libraries/STM32CubeF3/Drivers/CMSIS/Include"
+  "../../core/libraries/STM32CubeF3/Drivers/CMSIS/Device/ST/STM32F3xx/Include"
   )
